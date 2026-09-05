@@ -6,6 +6,9 @@ import Dresscode from "./componentes-encabezado/Dresscode";
 import Regalos from "./componentes-encabezado/Regalos";
 import Confirmacion from "./componentes-encabezado/Confirmacion";
 import Musica from "./componentes-encabezado/musica";
+import FraseSeparacion from "./componentes-encabezado/frase";
+import FraseFinal from "./componentes-encabezado/Fraseseparacion";
+
 
 export default function Intinerario() {
   return (
@@ -17,6 +20,8 @@ export default function Intinerario() {
 
       <Contador />
 
+      <FraseSeparacion/>
+
       <Celebracion />
 
       <Dresscode />
@@ -24,6 +29,8 @@ export default function Intinerario() {
       <Carousel />
 
       <Regalos />
+
+      <FraseFinal/>
 
       <Confirmacion />
     </div>

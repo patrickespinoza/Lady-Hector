@@ -6,8 +6,8 @@ export default function Portada() {
 
       {/* FOTO */}
       <img
-        src="/portada.png"
-        alt="Allison y David"
+        src="/portada.jpg"
+        alt="Lady y Hector"
         className="absolute inset-0 w-full h-full object-cover object-[center_35%]"
       />
 
@@ -16,10 +16,6 @@ export default function Portada() {
 
       {/* Contenido */}
       <div className="relative z-10 h-full flex flex-col justify-end items-center text-center px-6 pb-24">
-
-        <p className="uppercase tracking-[0.45em] text-white/90 text-sm sm:text-base font-playfair mb-6">
-          Nos Casamos
-        </p>
 
         <h1
           className="
@@ -33,7 +29,7 @@ export default function Portada() {
             drop-shadow-2xl
           "
         >
-          Allison & David
+          Lady & Hector
         </h1>
 
         <div className="w-24 h-px bg-white/70 my-8"></div>
@@ -50,7 +46,7 @@ export default function Portada() {
           "
         >
           <p className="font-playfair text-white text-lg sm:text-xl tracking-[0.2em] uppercase">
-            11 · Junio · 2027
+            24 · Octubre · 2026
           </p>
         </div>
 
