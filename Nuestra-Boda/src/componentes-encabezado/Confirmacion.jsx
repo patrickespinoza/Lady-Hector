@@ -315,7 +315,7 @@ const Confirmacion = () => {
     >
       {/* Flor superior izquierda */}
       <motion.img
-        src="/flor-azul-02.png"
+        src="/flor2.png"
         alt=""
         aria-hidden="true"
         className="
@@ -351,7 +351,7 @@ const Confirmacion = () => {
 
       {/* Flor inferior derecha */}
       <motion.img
-        src="/flor-azul-01.png"
+        src="/flor1.png"
         alt=""
         aria-hidden="true"
         className="

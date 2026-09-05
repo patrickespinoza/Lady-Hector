@@ -125,77 +125,7 @@ const Carousel = () => {
         md:py-28
       "
     >
-      {/* Flor superior izquierda */}
-      <motion.img
-        src="/flor2.png"
-        alt=""
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          -left-20
-          -top-24
-          z-0
-          w-60
-          select-none
-          opacity-55
-          sm:-left-16
-          sm:-top-28
-          sm:w-64
-          md:w-[360px]
-        "
-        initial={{
-          opacity: 0,
-          x: -35,
-          y: -30,
-        }}
-        whileInView={{
-          opacity: 0.55,
-          x: 0,
-          y: 0,
-        }}
-        viewport={{ once: true }}
-        transition={{
-          duration: 1.1,
-          ease: "easeOut",
-        }}
-      />
-
-      {/* Flor inferior derecha */}
-      <motion.img
-        src="/flor1.png"
-        alt=""
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          -bottom-36
-          -right-28
-          z-0
-          w-72
-          select-none
-          opacity-50
-          sm:-bottom-30
-          sm:-right-24
-          sm:w-[400px]
-          md:w-[470px]
-        "
-        initial={{
-          opacity: 0,
-          x: 40,
-          y: 35,
-        }}
-        whileInView={{
-          opacity: 0.5,
-          x: 0,
-          y: 0,
-        }}
-        viewport={{ once: true }}
-        transition={{
-          duration: 1.1,
-          ease: "easeOut",
-        }}
-      />
+      
 
       <motion.div
         className="

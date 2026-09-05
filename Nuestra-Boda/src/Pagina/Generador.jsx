@@ -12,15 +12,11 @@ import {
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
-/*
- * Debe ser exactamente la misma clave utilizada
- * dentro del componente Confirmacion.jsx.
- */
 const CLAVE_INVITACION =
   "ARELI-HECTOR-WEDLY-2027-CLAVE-PRIVADA";
 
 /* =========================================
-   UTILIDADES DE ENCRIPTACIÓN
+   ENCRIPTACIÓN
 ========================================= */
 
 const bytesABase64Url = (bytes) => {
@@ -57,11 +53,6 @@ const obtenerClaveAES = async () => {
 const encriptarInvitacion = async (nombre, pases) => {
   const clave = await obtenerClaveAES();
 
-  /*
-   * Cada enlace recibe un IV diferente para que dos
-   * invitaciones con los mismos datos no produzcan
-   * exactamente el mismo código.
-   */
   const iv = window.crypto.getRandomValues(
     new Uint8Array(12)
   );
@@ -104,13 +95,11 @@ const Generador = ({
 }) => {
   const [nombre, setNombre] = useState("");
   const [numeroPases, setNumeroPases] = useState("");
-
   const [enlaceGenerado, setEnlaceGenerado] =
     useState("");
 
   const [error, setError] = useState("");
   const [generando, setGenerando] = useState(false);
-
   const [copiado, setCopiado] = useState("");
 
   const mensajeWhatsApp = useMemo(() => {
@@ -145,13 +134,8 @@ const Generador = ({
       return;
     }
 
-    if (
-      !Number.isInteger(pases) ||
-      pases < 1
-    ) {
-      setError(
-        "Ingresa un número de pases válido."
-      );
+    if (!Number.isInteger(pases) || pases < 1) {
+      setError("Ingresa un número de pases válido.");
       return;
     }
 
@@ -174,11 +158,10 @@ const Generador = ({
       );
 
       /*
-       * Genera el enlace hacia la página principal.
-       * Aunque el generador esté en /generador,
-       * la invitación se abrirá desde la raíz.
+       * La invitación siempre abre desde la página principal,
+       * aunque el generador esté en /generador.
        */
-      const urlBase = `${window.location.origin}/}`;
+      const urlBase = window.location.origin;
 
       const enlace =
         `${urlBase}/?id=${encodeURIComponent(id)}`;
@@ -203,7 +186,6 @@ const Generador = ({
 
     try {
       await navigator.clipboard.writeText(texto);
-
       setCopiado(tipo);
 
       setTimeout(() => {
@@ -250,16 +232,18 @@ const Generador = ({
         relative
         isolate
         min-h-screen
-        overflow-hidden
+        w-full
+        overflow-x-hidden
         bg-[#D2E8EF]
-        px-4
-        py-10
+        px-3
+        py-4
         sm:px-6
-        sm:py-14
+        sm:py-10
         lg:px-8
+        lg:py-14
       "
     >
-      {/* Flores decorativas */}
+      {/* Flores del fondo */}
       <img
         src="/flor-azul-02.png"
         alt=""
@@ -267,13 +251,16 @@ const Generador = ({
         className="
           pointer-events-none
           absolute
-          -left-20
-          -top-24
+          -left-24
+          -top-20
           z-0
-          w-64
+          w-52
           select-none
-          opacity-50
+          opacity-35
+          sm:-left-20
+          sm:-top-24
           sm:w-80
+          sm:opacity-50
           lg:w-[390px]
         "
       />
@@ -285,13 +272,16 @@ const Generador = ({
         className="
           pointer-events-none
           absolute
-          -bottom-36
-          -right-28
+          -bottom-24
+          -right-24
           z-0
-          w-80
+          w-60
           select-none
-          opacity-45
+          opacity-30
+          sm:-bottom-36
+          sm:-right-28
           sm:w-[420px]
+          sm:opacity-45
           lg:w-[500px]
         "
       />
@@ -305,18 +295,20 @@ const Generador = ({
           w-full
           max-w-6xl
           overflow-hidden
-          rounded-[32px]
+          rounded-[22px]
           border
           border-[#75B2D2]
-          bg-white/85
-          shadow-[0_30px_80px_rgba(8,40,91,0.2)]
+          bg-white/90
+          shadow-[0_20px_55px_rgba(8,40,91,0.18)]
           backdrop-blur-md
+          sm:rounded-[32px]
           lg:grid-cols-[0.9fr_1.1fr]
           lg:rounded-[42px]
+          lg:shadow-[0_30px_80px_rgba(8,40,91,0.2)]
         "
         initial={{
           opacity: 0,
-          y: 40,
+          y: 30,
           scale: 0.98,
         }}
         animate={{
@@ -325,18 +317,21 @@ const Generador = ({
           scale: 1,
         }}
         transition={{
-          duration: 0.8,
+          duration: 0.7,
           ease: [0.22, 1, 0.36, 1],
         }}
       >
-        {/* Portada de los novios */}
+        {/* Portada */}
         <div
           className="
             relative
-            min-h-[390px]
+            h-[300px]
+            w-full
             overflow-hidden
             bg-[#08285B]
-            sm:min-h-[500px]
+            min-[430px]:h-[350px]
+            sm:h-[470px]
+            lg:h-auto
             lg:min-h-full
           "
         >
@@ -352,13 +347,13 @@ const Generador = ({
               object-center
             "
             initial={{
-              scale: 1.08,
+              scale: 1.07,
             }}
             animate={{
               scale: 1,
             }}
             transition={{
-              duration: 1.5,
+              duration: 1.4,
               ease: "easeOut",
             }}
           />
@@ -380,21 +375,25 @@ const Generador = ({
               inset-x-0
               bottom-0
               z-10
-              px-6
-              pb-9
+              px-4
+              pb-6
               text-center
               text-white
-              sm:px-10
-              sm:pb-12
+              sm:px-8
+              sm:pb-10
+              lg:px-10
+              lg:pb-12
             "
           >
             <p
               className="
-                text-[11px]
+                text-[9px]
                 font-semibold
                 uppercase
-                tracking-[0.4em]
+                tracking-[0.32em]
                 text-[#D2E8EF]
+                sm:text-[11px]
+                sm:tracking-[0.4em]
               "
             >
               Nos casamos
@@ -402,59 +401,84 @@ const Generador = ({
 
             <h1
               className="
-                mt-4
+                mt-2
                 font-['Playfair_Display']
-                text-5xl
+                text-[38px]
                 font-normal
                 leading-tight
+                sm:mt-4
                 sm:text-6xl
                 lg:text-7xl
               "
             >
               Lady
+
               <span
                 className="
-                  mx-3
+                  mx-2
                   font-['Cedarville_Cursive']
                   text-[#75B2D2]
+                  sm:mx-3
                 "
               >
                 &
               </span>
+
               Héctor
             </h1>
 
             <div
               className="
                 mx-auto
-                mt-6
+                mt-3
                 flex
                 items-center
                 justify-center
-                gap-3
+                gap-2
+                sm:mt-6
+                sm:gap-3
               "
             >
-              <span className="h-px w-14 bg-[#75B2D2]" />
-
               <span
                 className="
-                  h-2
-                  w-2
-                  rotate-45
-                  border
-                  border-white
+                  h-px
+                  w-10
+                  bg-[#75B2D2]
+                  sm:w-14
                 "
               />
 
-              <span className="h-px w-14 bg-[#75B2D2]" />
+              <span
+                className="
+                  h-1.5
+                  w-1.5
+                  rotate-45
+                  border
+                  border-white
+                  sm:h-2
+                  sm:w-2
+                "
+              />
+
+              <span
+                className="
+                  h-px
+                  w-10
+                  bg-[#75B2D2]
+                  sm:w-14
+                "
+              />
             </div>
 
             <p
               className="
-                mt-6
-                text-sm
-                tracking-[0.16em]
+                mt-3
+                text-[10px]
+                tracking-[0.12em]
                 text-white/80
+                sm:mt-6
+                sm:text-sm
+                sm:tracking-[0.16em]
               "
             >
               Generador de invitaciones
@@ -462,13 +486,15 @@ const Generador = ({
           </div>
         </div>
 
-        {/* Panel del generador */}
+        {/* Panel */}
         <div
           className="
-            px-5
-            py-9
+            min-w-0
+            px-4
+            py-7
+            min-[430px]:px-6
             sm:px-9
-            sm:py-12
+            sm:py-11
             lg:px-12
             lg:py-14
           "
@@ -479,19 +505,24 @@ const Generador = ({
                 flex
                 items-center
                 justify-center
-                gap-3
+                gap-2
                 text-[#3196BA]
                 lg:justify-start
               "
             >
-              <LockKeyhole size={18} />
+              <LockKeyhole
+                size={17}
+                className="shrink-0"
+              />
 
               <p
                 className="
-                  text-[11px]
+                  text-[9px]
                   font-semibold
                   uppercase
-                  tracking-[0.32em]
+                  tracking-[0.22em]
+                  sm:text-[11px]
+                  sm:tracking-[0.32em]
                 "
               >
                 Enlace protegido
@@ -500,10 +531,12 @@ const Generador = ({
 
             <h2
               className="
-                mt-4
+                mt-3
                 font-['Playfair_Display']
-                text-4xl
+                text-[34px]
+                leading-tight
                 text-[#08285B]
+                sm:mt-4
                 sm:text-5xl
               "
             >
@@ -512,9 +545,16 @@ const Generador = ({
 
             <p
               className="
-                mt-4
-                leading-7
+                mx-auto
+                mt-3
+                max-w-md
+                text-sm
+                leading-6
                 text-black/60
+                sm:mt-4
+                sm:text-base
+                sm:leading-7
+                lg:mx-0
               "
             >
               Escribe el nombre del invitado y la cantidad
@@ -523,18 +563,20 @@ const Generador = ({
           </div>
 
           {/* Formulario */}
-          <div className="mt-9 space-y-5">
+          <div className="mt-7 space-y-5 sm:mt-9">
             <div>
               <label
                 htmlFor="nombre"
                 className="
                   mb-2
                   block
-                  text-xs
+                  text-[10px]
                   font-semibold
                   uppercase
-                  tracking-[0.18em]
+                  tracking-[0.14em]
                   text-[#08285B]
+                  sm:text-xs
+                  sm:tracking-[0.18em]
                 "
               >
                 Nombre del invitado
@@ -542,7 +584,7 @@ const Generador = ({
 
               <div className="relative">
                 <User
-                  size={19}
+                  size={18}
                   className="
                     pointer-events-none
                     absolute
@@ -556,6 +598,7 @@ const Generador = ({
                 <input
                   id="nombre"
                   type="text"
+                  autoComplete="off"
                   value={nombre}
                   onChange={(evento) => {
                     setNombre(evento.target.value);
@@ -565,21 +608,28 @@ const Generador = ({
                   }}
                   placeholder="Ejemplo: Familia Hernández"
                   className="
+                    min-h-[52px]
                     w-full
-                    rounded-2xl
+                    rounded-xl
                     border
                     border-[#75B2D2]
                     bg-white
-                    py-4
-                    pl-12
-                    pr-5
+                    py-3
+                    pl-11
+                    pr-4
+                    text-base
                     text-[#08285B]
                     outline-none
                     transition
+                    placeholder:text-sm
                     placeholder:text-black/35
                     focus:border-[#245C9B]
                     focus:ring-2
                     focus:ring-[#3196BA]/20
+                    sm:min-h-[56px]
+                    sm:rounded-2xl
+                    sm:pl-12
+                    sm:pr-5
                   "
                 />
               </div>
@@ -591,11 +641,13 @@ const Generador = ({
                 className="
                   mb-2
                   block
-                  text-xs
+                  text-[10px]
                   font-semibold
                   uppercase
-                  tracking-[0.18em]
+                  tracking-[0.14em]
                   text-[#08285B]
+                  sm:text-xs
+                  sm:tracking-[0.18em]
                 "
               >
                 Número de pases
@@ -603,7 +655,7 @@ const Generador = ({
 
               <div className="relative">
                 <Users
-                  size={19}
+                  size={18}
                   className="
                     pointer-events-none
                     absolute
@@ -628,21 +680,28 @@ const Generador = ({
                   }}
                   placeholder="Ejemplo: 2"
                   className="
+                    min-h-[52px]
                     w-full
-                    rounded-2xl
+                    rounded-xl
                     border
                     border-[#75B2D2]
                     bg-white
-                    py-4
-                    pl-12
-                    pr-5
+                    py-3
+                    pl-11
+                    pr-4
+                    text-base
                     text-[#08285B]
                     outline-none
                     transition
+                    placeholder:text-sm
                     placeholder:text-black/35
                     focus:border-[#245C9B]
                     focus:ring-2
                     focus:ring-[#3196BA]/20
+                    sm:min-h-[56px]
+                    sm:rounded-2xl
+                    sm:pl-12
+                    sm:pr-5
                   "
                 />
               </div>
@@ -681,28 +740,34 @@ const Generador = ({
               disabled={generando}
               className="
                 flex
+                min-h-[54px]
                 w-full
                 items-center
                 justify-center
-                gap-3
+                gap-2.5
                 rounded-full
                 bg-[#08285B]
-                px-7
-                py-4
+                px-4
+                py-3.5
                 font-['Playfair_Display']
-                text-lg
+                text-base
                 text-white
-                shadow-[0_15px_35px_rgba(8,40,91,0.25)]
+                shadow-[0_13px_30px_rgba(8,40,91,0.24)]
                 transition
                 hover:bg-[#245C9B]
                 disabled:cursor-not-allowed
                 disabled:opacity-60
+                sm:min-h-[58px]
+                sm:gap-3
+                sm:px-7
+                sm:py-4
+                sm:text-lg
               "
               whileHover={
                 generando
                   ? {}
                   : {
-                      scale: 1.02,
+                      scale: 1.015,
                       y: -2,
                     }
               }
@@ -720,6 +785,7 @@ const Generador = ({
                     className="
                       h-5
                       w-5
+                      shrink-0
                       animate-spin
                       rounded-full
                       border-2
@@ -728,26 +794,33 @@ const Generador = ({
                     "
                   />
 
-                  Encriptando invitación...
+                  <span>Encriptando invitación...</span>
                 </>
               ) : (
                 <>
-                  <LockKeyhole size={20} />
-                  Generar enlace
+                  <LockKeyhole
+                    size={20}
+                    className="shrink-0"
+                  />
+
+                  <span>Generar enlace</span>
                 </>
               )}
             </motion.button>
           </div>
 
-          {/* Resultado */}
+          {/* Resultados */}
           {enlaceGenerado && (
             <motion.div
               className="
-                mt-9
+                mt-7
+                min-w-0
                 space-y-6
                 border-t
                 border-[#75B2D2]/60
-                pt-8
+                pt-7
+                sm:mt-9
+                sm:pt-8
               "
               initial={{
                 opacity: 0,
@@ -761,33 +834,40 @@ const Generador = ({
                 duration: 0.5,
               }}
             >
-              {/* Enlace */}
-              <div>
+              {/* Enlace generado */}
+              <div className="min-w-0">
                 <div
                   className="
                     mb-3
                     flex
+                    flex-wrap
                     items-center
                     justify-between
-                    gap-4
+                    gap-2
                   "
                 >
                   <div
                     className="
                       flex
+                      min-w-0
                       items-center
                       gap-2
                       text-[#08285B]
                     "
                   >
-                    <Link2 size={18} />
+                    <Link2
+                      size={18}
+                      className="shrink-0"
+                    />
 
                     <h3
                       className="
-                        text-xs
+                        text-[10px]
                         font-semibold
                         uppercase
-                        tracking-[0.18em]
+                        tracking-[0.14em]
+                        sm:text-xs
+                        sm:tracking-[0.18em]
                       "
                     >
                       Enlace encriptado
@@ -798,6 +878,7 @@ const Generador = ({
                     <span
                       className="
                         flex
+                        shrink-0
                         items-center
                         gap-1
                         text-xs
@@ -812,23 +893,30 @@ const Generador = ({
 
                 <div
                   className="
-                    flex
+                    grid
+                    min-w-0
+                    grid-cols-[minmax(0,1fr)_44px]
                     items-center
                     gap-2
-                    rounded-2xl
+                    rounded-xl
                     border
                     border-[#75B2D2]
                     bg-[#D2E8EF]/55
-                    p-3
+                    p-2.5
+                    sm:grid-cols-[minmax(0,1fr)_48px]
+                    sm:rounded-2xl
+                    sm:p-3
                   "
                 >
                   <p
                     className="
                       min-w-0
-                      flex-1
-                      truncate
-                      text-sm
+                      break-all
+                      text-xs
+                      leading-5
                       text-[#08285B]
+                      sm:text-sm
+                      sm:leading-6
                     "
                   >
                     {enlaceGenerado}
@@ -855,6 +943,8 @@ const Generador = ({
                       text-white
                       transition
                       hover:bg-[#245C9B]
+                      sm:h-12
+                      sm:w-12
                     "
                   >
                     {copiado === "enlace" ? (
@@ -866,33 +956,40 @@ const Generador = ({
                 </div>
               </div>
 
-              {/* Mensaje */}
-              <div>
+              {/* Vista previa del mensaje */}
+              <div className="min-w-0">
                 <div
                   className="
-                    mb--3
+                    mb-3
                     flex
+                    flex-wrap
                     items-center
                     justify-between
-                    gap-4
+                    gap-2
                   "
                 >
                   <div
                     className="
                       flex
+                      min-w-0
                       items-center
                       gap-2
                       text-[#08285B]
                     "
                   >
-                    <FaWhatsapp size={19} />
+                    <FaWhatsapp
+                      size={19}
+                      className="shrink-0"
+                    />
 
                     <h3
                       className="
-                        text-xs
+                        text-[10px]
                         font-semibold
                         uppercase
-                        tracking-[0.18em]
+                        tracking-[0.14em]
+                        sm:text-xs
+                        sm:tracking-[0.18em]
                       "
                     >
                       Mensaje de WhatsApp
@@ -903,6 +1000,7 @@ const Generador = ({
                     <span
                       className="
                         flex
+                        shrink-0
                         items-center
                         gap-1
                         text-xs
@@ -917,23 +1015,31 @@ const Generador = ({
 
                 <div
                   className="
-                    rounded-2xl
+                    min-w-0
+                    rounded-xl
                     border
                     border-[#75B2D2]
                     bg-white
-                    p-4
+                    p-3
+                    sm:rounded-2xl
+                    sm:p-4
                   "
                 >
                   <pre
                     className="
-                      max-h-64
+                      max-h-[280px]
+                      w-full
+                      overflow-x-hidden
                       overflow-y-auto
                       whitespace-pre-wrap
                       break-words
                       font-sans
-                      text-sm
-                      leading-7
+                      text-[13px]
+                      leading-6
                       text-black/70
+                      sm:max-h-64
+                      sm:text-sm
+                      sm:leading-7
                     "
                   >
                     {mensajeWhatsApp}
@@ -941,7 +1047,7 @@ const Generador = ({
                 </div>
               </div>
 
-              {/* Acciones */}
+              {/* Botones */}
               <div
                 className="
                   grid
@@ -960,28 +1066,45 @@ const Generador = ({
                   }
                   className="
                     flex
+                    min-h-[52px]
+                    w-full
                     items-center
                     justify-center
-                    gap-3
+                    gap-2.5
                     rounded-full
                     border
                     border-[#08285B]
                     bg-white
-                    px-5
-                    py-3.5
+                    px-4
+                    py-3
+                    text-sm
                     font-semibold
                     text-[#08285B]
                     transition
                     hover:bg-[#D2E8EF]
+                    sm:min-h-[56px]
+                    sm:gap-3
+                    sm:px-5
+                    sm:py-3.5
                   "
                 >
                   {copiado === "mensaje" ? (
-                    <Check size={19} />
+                    <Check
+                      size={19}
+                      className="shrink-0"
+                    />
                   ) : (
-                    <Copy size={19} />
+                    <Copy
+                      size={19}
+                      className="shrink-0"
+                    />
                   )}
 
-                  Copiar mensaje
+                  <span>
+                    {copiado === "mensaje"
+                      ? "Mensaje copiado"
+                      : "Copiar mensaje"}
+                  </span>
                 </button>
 
                 <button
@@ -989,21 +1112,32 @@ const Generador = ({
                   onClick={abrirWhatsApp}
                   className="
                     flex
+                    min-h-[52px]
+                    w-full
                     items-center
                     justify-center
-                    gap-3
+                    gap-2.5
                     rounded-full
                     bg-[#3196BA]
-                    px-5
-                    py-3.5
+                    px-4
+                    py-3
+                    text-sm
                     font-semibold
                     text-white
                     transition
                     hover:bg-[#245C9B]
+                    sm:min-h-[56px]
+                    sm:gap-3
+                    sm:px-5
+                    sm:py-3.5
                   "
                 >
-                  <FaWhatsapp size={21} />
-                  Abrir WhatsApp
+                  <FaWhatsapp
+                    size={21}
+                    className="shrink-0"
+                  />
+
+                  <span>Abrir WhatsApp</span>
                 </button>
               </div>
 
@@ -1013,9 +1147,11 @@ const Generador = ({
                 className="
                   mx-auto
                   flex
+                  min-h-[44px]
                   items-center
                   justify-center
                   gap-2
+                  px-3
                   text-sm
                   font-semibold
                   text-[#245C9B]
@@ -1032,20 +1168,31 @@ const Generador = ({
           {!enlaceGenerado && (
             <div
               className="
-                mt-8
+                mx-auto
+                mt-7
                 flex
-                items-center
+                max-w-sm
+                items-start
                 justify-center
                 gap-2
                 text-center
-                text-xs
+                text-[11px]
                 leading-5
                 text-black/45
+                sm:mt-8
+                sm:items-center
+                sm:text-xs
               "
             >
-              <Send size={15} />
+              <Send
+                size={15}
+                className="mt-0.5 shrink-0 sm:mt-0"
+              />
 
-              El nombre y los pases no serán visibles en el URL.
+              <span>
+                El nombre y los pases no serán visibles en el
+                URL.
+              </span>
             </div>
           )}
         </div>
