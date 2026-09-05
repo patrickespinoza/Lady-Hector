@@ -7,7 +7,7 @@ import {
 
 const IMAGENES = [
   {
-    src: "/Carrusel01.jpeg",
+    src: "/Carrusel01v.jpeg",
     alt: "Momento de Areli y Héctor 1",
     position: "center 70%",
   },
@@ -141,7 +141,7 @@ const Carousel = () => {
           opacity-55
           sm:-left-16
           sm:-top-28
-          sm:w-80
+          sm:w-64
           md:w-[360px]
         "
         initial={{
